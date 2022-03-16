@@ -24,7 +24,7 @@ def email():
                 server.sendmail(from_addr, to, message)
                 print("Correo enviado")
         except:
-                print("Error: el mensaje no pudo enviarse.\nCompruebe que sendm$
+                print("Error: el mensaje no pudo enviarse.\nCompruebe que sendmail se encuentra instalado en su sistema")
 
         server.quit()
 
