@@ -13,6 +13,15 @@
 # f.seek(n, 0): Equivalente al anterior
 # f.seek(n, 1): Desplazarnos n bytes a partir de la posición actual del fichero
 # f.seek(n, 2): Situarnos n bytes antes del final de fichero.
+# Modo de apertura----Descripción----Acción
+# 'w'----Escritura----Si el fichero no existe lo crea. Si existe, borra su contenido
+# 'r'----Lectura----Si existe fichero: lo abre. Si no existe: excepción FileNotFoundError
+# 'a'----Añadir----Si fichero no existe, lo crea para escritura. Si existe, añade al final
+# 'w+'----Actualizar----Escritura/ lectura. Si el fichero no existe lo crea. Si existe: borra
+# 'r+'----Actualizar----Lectura/Escritura. Si no existe: excepción FileNotFoundError
+# 'a+'----Añadir----Escritura/lectura. Si existe, añade al final.
+# 'b'----Binario----Abre en binario. Combinadas con otras banderas: establece modo
+# 'x'----Creación----Abre exclusivamente para crear fichero. Si ya existe, falla
 
 def abrirfichero(name, sel):
     if sel:
