@@ -1,0 +1,7 @@
+#!/usr/bin/env python3
+# -*- coding: utf-8 -*-
+
+import os
+
+print('Hola Mundo')
+result=os.system("./pass -h") #Executem segon arxiu
