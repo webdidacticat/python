@@ -1,0 +1,60 @@
+#!/usr/bin/env python3
+# -*- coding: utf-8 -*-
+########
+###
+### Programa per enviar un mail con un fitxer adjunt
+###
+#######
+
+import smtplib
+from email.mime.multipart import MIMEMultipart
+from email.mime.base import MIMEBase
+from email.mime.text import MIMEText
+from email import encoders
+
+nom = "Web"
+file = 'mail.txt'
+remitente='username@mail.com'
+destinatario=['destino@mail.com']
+
+def email(cos):
+        ### Codi per enviar mail con arxiu
+        msg = MIMEMultipart()
+        ### Codi per enviar un mail
+        msg['From'] = remitente
+        msg['To'] = ", ".join(destinatario)
+        msg['Subject'] = 'Subject: E-mail HTML enviado desde Python\n'
+        message = """Hola!<br/> <br/>Este es un <b>e-mail</b> enviando desde <b>Python</b>"""
+        msg.attach(MIMEText(message, 'plain'))
+
+        # Codi per obrir l'arxiu a enviar
+        archivo_adjunto = open(file, 'rb')
+
+        # Creamos un objeto MIME base
+        adjunto_MIME = MIMEBase('application', 'octet-stream')
+        # Y le cargamos el archivo adjunto
+        adjunto_MIME.set_payload((archivo_adjunto).read())
+        # Codificamos el objeto en BASE64
+        encoders.encode_base64(adjunto_MIME)
+        # Agregamos una cabecera al objeto
+        adjunto_MIME.add_header('Content-Disposition', "attachment; filename= %s" % file)
+        # Y finalmente lo agregamos al mensaje
+        msg.attach(adjunto_MIME)
+
+        # Reemplaza estos valores con tus credenciales de Google Mail
+        username = 'username@mail.com'
+        password = 'password_1234'
+
+        try:
+                server = smtplib.SMTP('smtp.gmail.com',587)
+                server.starttls()
+                server.login(username, password)
+                texto = msg.as_string()
+                server.sendmail(remitente, destinatario, texto)
+                print("Correo enviado")
+        except:
+                print("Error: el mensaje no pudo enviarse.\nCompruebe que sendmail se encuentra insta>
+
+        server.quit()
+
+email(nom)
