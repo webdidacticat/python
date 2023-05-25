@@ -27,3 +27,18 @@ Por último, PyInstaller puede encriptar los archivos de código de fuente de Py
 pyinstaller --key=1234567891234567 main.py
 Esta opción requiere del paquete tinyaes, instalable vía:
 pip install tinyaes
+
+cx_Freeze
+cx_Freeze es muy similar a PyInstaller, e igualmente puede generar ejecutables para Windows, Linux y Mac. Para instalarlo, ejecutamos vía pip:
+pip install cx_Freeze
+
+Una vez instalado, si el archivo principal de nuestra aplicación es main.py, abramos una terminal donde se encuentre ubicado y ejecutemos:
+cxfreeze -c main.py --target-dir dist
+
+La opción -c indica el nombre del archivo a convertir y --target-dir la carpeta donde se cx_Freeze almacenará el archivo ejecutable.
+Para establecer una imagen como ícono, debe utilizarse la opción --icon.
+cxfreeze -c main.py --icon=archivo.ico --target-dir dist
+
+En Windows, puede ocultarse la consola implementando la opción --base-name=Win32GUI (todas las opciones son combinables).
+cxfreeze -c ain.py --base-name=Win32GUI --target-dir dist
+
