@@ -1,0 +1,29 @@
+
+Python es un lenguaje interpretado. Eso implica que los usuarios de nuestras aplicaciones de consola o de escritorio (por ejemplo, aquellas desarrolladas con Tk (tkinter), PyQt/PySide, wxPython, etc.) deben tener Python instalado para correr los archivos .py. Sin embargo, existen múltiples herramientas que permiten crear archivos ejecutables (.exe, .app, etc.) para sistemas Windows, Linux y Mac, de modo que nuestra aplicación pueda ejecutarse sin requerir la instalación de Python. Esto facilita mucho la distribución de nuestros programas y mejora la experiencia del usuario.
+
+PyInstaller
+PyInstaller puede generar ejecutables para Windows, Linux y Mac con un sencillo comando. Primero, asegurémonos de instalar PyInstaller vía pip:
+pip install pyinstaller
+
+Luego, invocamos el siguiente comando desde la terminal para convertir el archivo main.py a un ejecutable:
+pyinstaller main.py
+
+Si nuestra aplicación está compuesta por múltiples archivos .py, pasaremos el archivo principal, es decir, el archivo donde reside el código para iniciar el programa.
+Al finalizar la ejecución del comando, el archivo ejecutable se encontrará en la carpeta dist junto con todas sus dependencias. El formato y la extensión del archivo ejecutable generado dependerán del sistema operativo desde el cual se haya ejecutado el comando. En Windows obtendremos un archivo .exe, en Mac un archivo .app, y en Linux simplemente un archivo ejecutable sin extensión. La carpeta build creada durante la ejecución de PyInstaller puede ser eliminada.
+Si queremos que PyInstaller genere un solo ejecutable sin dependencias (archivos .dll, .so, etc.), le pasamos la opción --onefile:
+pyinstaller --onefile main.py
+
+Los ejecutables generados con --onefile son más fáciles de distribuir, pero tienen un tiempo mayor de inicialización porque todas las dependencias deben extraerse en una carpeta temporal antes de ejecutar el programa.
+Para aplicaciones con interfaces gráficas, será mejor decirle a PyInstaller que no muestre la consola vía la opción --noconsole (todas las opciones son combinables):
+pyinstaller --noconsole main.py
+
+Por defecto los ejecutables generados tienen el ícono de PyInstaller. Para especificar nuestro propio ícono, usamos la opción --icon seguida de la ruta o el nombre del archivo de ícono:
+pyinstaller --icon=archivo.ico main.py
+
+Puede reducirse el tamaño del archivo final comprimiéndolo con UPX vía la opción --upx-dir, que debe especificar la carpeta en donde se encuentra instalado compresor, por ejemplo:
+pyinstaller --onefile --upx-dir=C:\upx main.py
+
+Por último, PyInstaller puede encriptar los archivos de código de fuente de Python siempre que se provea una clave de 16 dígitos vía --key=clave_de_16_digitos:
+pyinstaller --key=1234567891234567 main.py
+Esta opción requiere del paquete tinyaes, instalable vía:
+pip install tinyaes
